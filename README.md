@@ -1,4 +1,4 @@
-# Rapid-Implementation-MLPerf
+# Rapid Implementation MLPerf
 <div align="justify">
 This is a recipe for a quick cross-platform implementation of MLPerf in Docker.
 
