@@ -46,12 +46,12 @@ Move to the tools directory to download the datasets and download the dataset yo
 cd inference/vision/classification_and_detection/tools/
 ```
 
-Copy the contents of the "make_fake_imagenet" file:
+Save the contents of the "make_fake_imagenet" file:
 ```
 cp -p make_fake_imagenet.sh make_fake_imagenet.sh.$(date +%Y%m%d-%H%M%S)
 ```
 
-Copy the contents of the file located in the repo in **update/tools/make_fake_image.sh** into the **make_fake_imagenet.sh** file.
+Copy the contents of the file located in the repo in **`update/tools/make_fake_image.sh`** into the **`make_fake_imagenet.sh`** file.
 
 Run the program and move the dataset.
 ```
