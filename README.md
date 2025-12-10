@@ -7,7 +7,7 @@ There are different ways to run benchmarks in MLPerf, Docker is one of the most 
 **Docker** allows you to package and distribute MLPerf test environments as portable containers (Rapid deployment), simplifying the installation of dependencies and ensuring consistent environments. This option is ideal for users seeking rapid configuration or working in infrastructures where container-based virtualization is standard. With Docker, you can obtain official MLCommons images or build custom containers tailored to specific hardware or software needs.
 </div>
 
-- In the **Docker** directory you will find a recipe for a quick deployment.
+- In the **Docker** directory you will find a recipe for a rapid x86-64 deployment.
 
 # What's MLPerf?
 <div align="justify">
