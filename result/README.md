@@ -2,6 +2,13 @@
 
 The results were obtained by running the recipe provided in the Docker directory and using the files located in the update directory. Although the results may differ slightly from those presented in the tables, the recipe ensures that the process is reproducible and can be executed consistently across different environments. It is important to note that variations in the power supply, the temperature of the testing environment, and the effectiveness of thermal dissipation mechanisms can impact the outcomes. These factors have an even stronger influence on embedded devices, where performance is more sensitive to external conditions.
 
+## Glossary
+- HW=Hardware
+- ORT=OnnxRunTime
+- TF=TensorFlow
+- MOB=Mobilenet
+- RES=Resnet50
+
 Table 1. Description of the Devices Evaluated
 | Device   | CPU                       | RAM   | Others                                             | NET                 |
 |----------|---------------------------|-------|----------------------------------------------------|---------------------|
@@ -48,4 +55,42 @@ Table 2. Results Obtained from Devices in the SingleStream Scenario
 | Cloud | ExaSM | CPU | TF  | RES | - | - | - | - | - | - | - | - | 0.01087 | 0.00402 |
 | Cloud | ExaSM | CPU | ORT | MOB | - | - | - | - | - | - | - | - | 0.00757 | 0.00280 |
 | Cloud | ExaSM | CPU | ORT | RES | - | - | - | - | - | - | - | - | 0.01080 | 0.00399 |
+
+Table 3. Results Obtained from Devices in the MultiStream Scenario
+| Layer | Device  | HW   | Framework | Model | Avg qps | Mean Avg ms | Time Avg s | Avg Watts | Avg dist Watts | Queries | P50 Latency (ms) | P99 Latency (ms) | Energy (kWh) | CO2 (Kg eq) |
+|-------|---------|------|-----------|-------|---------|--------------|-------------|------------|------------------|---------|-------------------|-------------------|----------------|--------------|
+| Edge | Laptop | CPU | TF  | MOB | 19.39 | 508.10 | 600.26 | 81.97 | 1.65 | 11640.0 | 50.70 | 53.17 | 0.01367 | 0.00410 |
+| Edge | Laptop | CPU | TF  | RES | 4.02 | 247.93 | 600.51 | 85.20 | 0.82 | 2414.3 | 247.80 | 252.00 | 0.01423 | 0.00427 |
+| Edge | Laptop | CPU | ORT | MOB | 28.05 | 34.90 | 534.92 | 66.20 | 1.55 | 15001.0 | 34.60 | 50.83 | 0.00986 | 0.00296 |
+| Edge | Laptop | CPU | ORT | RES | 5.21 | 191.30 | 600.42 | 65.97 | 1.49 | 3126.3 | 188.50 | 318.93 | 0.01100 | 0.00330 |
+| Edge | Laptop | GPU | TF  | MOB | 78.46 | 12.17 | 191.20 | 83.20 | 1.49 | 15001.0 | 12.20 | 12.40 | 0.00441 | 0.00132 |
+| Edge | Laptop | GPU | TF  | RES | 23.67 | 41.67 | 600.10 | 92.97 | 1.77 | 14206.0 | 41.60 | 42.13 | 0.01549 | 0.00465 |
+| Edge | Laptop | GPU | ORT | MOB | 84.98 | 11.20 | 176.51 | 90.20 | 1.75 | 15001.0 | 11.10 | 11.27 | 0.00442 | 0.00133 |
+| Edge | Laptop | GPU | ORT | RES | 25.24 | 39.03 | 594.26 | 93.23 | 1.86 | 15001.0 | 39.00 | 39.27 | 0.01539 | 0.00462 |
+| Edge | RPi | CPU | TF  | MOB | 0.94 | 1061.77 | 707.46 | 4.80 | 0.17 | 662.0 | 1090.77 | 1177.47 | 0.00094 | 15.547 |
+| Edge | RPi | CPU | TF  | RES | 0.17 | 5916.03 | 3921.07 | 4.63 | 0.17 | 662.0 | 5894.93 | 6122.60 | 0.00505 | 14.997 |
+| Edge | RPi | CPU | ORT | MOB | 0.76 | 1328.63 | 870.51 | 4.63 | 0.17 | 662.0 | 1439.40 | 1597.97 | 0.00112 | 14.997 |
+| Edge | RPi | CPU | ORT | RES | 0.17 | 6111.40 | 4052.95 | 5.30 | 0.18 | 662.0 | 6613.67 | 6994.73 | 0.00596 | 17.167 |
+| Edge | Nano | CPU | TF  | MOB | 2.11 | 468.90 | 600.57 | 6.08 | 0.93 | 1184.3 | 461.47 | 486.63 | 0.00101 | 19.693 |
+| Edge | Nano | CPU | TF  | RES | 0.35 | 2081.57 | 1820.15 | 6.72 | 1.04 | 662.0 | 2079.33 | 2152.03 | 0.00340 | 21.766 |
+| Edge | Nano | CPU | ORT | MOB | 1.52 | 658.93 | 600.92 | 6.60 | 0.93 | 908.0 | 656.80 | 678.37 | 0.00110 | 21.377 |
+| Edge | Nano | CPU | ORT | RES | 0.37 | 2696.77 | 1786.64 | 6.71 | 1.33 | 662.0 | 2690.63 | 2756.77 | 0.00333 | 21.734 |
+| Fog | Nova | CPU | TF  | MOB | 28.44 | 0.034 | 527.57 | 86.14 | 10.843 | 15001 | 33.43 | 36.87 | 0.01262 | 0.00454 |
+| Fog | Nova | CPU | TF  | RES | 7.26 | 0.136 | 600.24 | 95.37 | 9.413 | 4355 | 136.13 | 146.83 | 0.01590 | 0.00572 |
+| Fog | Nova | CPU | ORT | MOB | 35.41 | 0.027 | 427.24 | 94.50 | 3.907 | 15001 | 26.60 | 34.03 | 0.01122 | 0.00404 |
+| Fog | Nova | CPU | ORT | RES | 8.29 | 0.120 | 600.21 | 97.60 | 3.420 | 4972 | 123.00 | 158.83 | 0.01627 | 0.00586 |
+| Fog | Neowise | CPU | TF  | MOB | 30.50 | 0.033 | 500.36 | 158.71 | 15.497 | 15001 | 33.83 | 37.43 | 0.02206 | 0.00794 |
+| Fog | Neowise | CPU | TF  | RES | 10.91 | 0.091 | 600.17 | 177.14 | 8.520 | 6550 | 90.43 | 100.97 | 0.02953 | 0.01063 |
+| Fog | Neowise | CPU | ORT | MOB | 80.95 | 0.012 | 185.32 | 199.07 | 6.980 | 15001 | 10.63 | 27.53 | 0.01025 | 0.00369 |
+| Fog | Neowise | CPU | ORT | RES | 22.04 | 0.045 | 600.12 | 208.32 | 3.530 | 13225 | 41.00 | 82.37 | 0.03473 | 0.01250 |
+| Cloud | ExaDell | CPU | TF  | MOB | - | - | - | - | - | - | - | - | 0.01262 | 0.00467 |
+| Cloud | ExaDell | CPU | TF  | RES | - | - | - | - | - | - | - | - | 0.01590 | 0.00588 |
+| Cloud | ExaDell | CPU | ORT | MOB | - | - | - | - | - | - | - | - | 0.01122 | 0.00415 |
+| Cloud | ExaDell | CPU | ORT | RES | - | - | - | - | - | - | - | - | 0.01627 | 0.00602 |
+| Cloud | ExaSM | CPU | TF  | MOB | - | - | - | - | - | - | - | - | 0.02206 | 0.00816 |
+| Cloud | ExaSM | CPU | TF  | RES | - | - | - | - | - | - | - | - | 0.02953 | 0.01092 |
+| Cloud | ExaSM | CPU | ORT | MOB | - | - | - | - | - | - | - | - | 0.01025 | 0.00379 |
+| Cloud | ExaSM | CPU | ORT | RES | - | - | - | - | - | - | - | - | 0.03473 | 0.03473 |
+
+The *csv* directory contains the energy consumption data collected during the experiments. For the edge devices, the measurements were obtained using a smart power outlet ([VTA-84630](https://www.manualslib.es/manual/346126/Vta-84630.html)). In contrast, the data for the fog devices were gathered using the Kwollect monitoring tool.
 
