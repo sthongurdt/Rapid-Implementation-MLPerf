@@ -92,5 +92,5 @@ Table 3. Results Obtained from Devices in the MultiStream Scenario
 | Cloud | ExaSM | CPU | ORT | MOB | - | - | - | - | - | - | - | - | 0.01025 | 0.00379 |
 | Cloud | ExaSM | CPU | ORT | RES | - | - | - | - | - | - | - | - | 0.03473 | 0.03473 |
 
-The *FOG* and *EDGE* directory contains the energy consumption data collected during the experiments. For the edge devices, the measurements were obtained using a smart power outlet ([VTA-84630](https://www.manualslib.es/manual/346126/Vta-84630.html)). In contrast, the data for the fog devices were gathered using the Kwollect monitoring tool.
+The ´FOG´ and ´EDGE´ directory contains the energy consumption data collected during the experiments. For the edge devices, the measurements were obtained using a smart power outlet ([VTA-84630](https://www.manualslib.es/manual/346126/Vta-84630.html)). In contrast, the data for the fog devices were gathered using the Kwollect monitoring tool.
 
