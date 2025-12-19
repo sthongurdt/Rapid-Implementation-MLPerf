@@ -1,13 +1,15 @@
-# Result
+<div >
+<h1>Result</h1>
 
 The results were obtained by running the recipe provided in the Docker directory and using the files located in the update directory. Although the results may differ slightly from those presented in the tables, the recipe ensures that the process is reproducible and can be executed consistently across different environments. It is important to note that variations in the power supply, the temperature of the testing environment, and the effectiveness of thermal dissipation mechanisms can impact the outcomes. These factors have an even stronger influence on embedded devices, where performance is more sensitive to external conditions.
 
-## Glossary
+<h2>Glossary</h2>
 - HW=Hardware
 - ORT=OnnxRunTime
 - TF=TensorFlow
 - MOB=Mobilenet
 - RES=Resnet50
+</div>
 
 Table 1. Description of the Devices Evaluated
 | Device   | CPU                       | RAM   | Others                                             | NET                 |
