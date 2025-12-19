@@ -4,12 +4,21 @@
 The results were obtained by running the recipe provided in the Docker directory and using the files located in the update directory. Although the results may differ slightly from those presented in the tables, the recipe ensures that the process is reproducible and can be executed consistently across different environments. It is important to note that variations in the power supply, the temperature of the testing environment, and the effectiveness of thermal dissipation mechanisms can impact the outcomes. These factors have an even stronger influence on embedded devices, where performance is more sensitive to external conditions.
 
 <h2>Glossary</h2>
-<li>HW=Hardware</li>
-<li>ORT=OnnxRunTime</li>
-<li>TF=TensorFlow</li>
-<li>MOB=Mobilenet</li>
-<li>RES=Resnet50</li>
+  <li>HW=Hardware</li>
+  <li>ORT=OnnxRunTime</li>
+  <li>TF=TensorFlow</li>
+  <li>MOB=Mobilenet</li>
+  <li>RES=Resnet50</li>
 </div>
+
+To explain the methodology behind these tests, it is helpful to view them as a multi-layered benchmarking process designed to measure the environmental cost of AI at the "edge."
+
+1. Hardware Selection (Table. 1.) and explain why
+
+The tests began by selecting specific hardware platforms that represent different tiers of the Edge and Fog computing hierarchy.
+- Low-Power CPU: The Raspberry Pi 4 (RPI) was used to represent common, accessible IoT hardware.
+- Entry-Level GPU: The NVIDIA Jetson Nano 2GB was selected to test hardware specifically optimized for AI at the edge.
+- High-Performance, FOG and  Edge CPU/GPU: The PUs was used to represent the upper end of Fog computing, EDGE devices (without laptop) and HPC resources.
 
 Table 1. Description of the Devices Evaluated
 | Device   | CPU                       | RAM   | Others                                             | NET                 |
@@ -21,6 +30,31 @@ Table 1. Description of the Devices Evaluated
 | Neowise  | AMD EPYC 7642             | 512 GB| 1788 GB SSD, 8 GPUs Radeon Instinct MI50           | 2 x 10GbE           |
 | ExaDell  | 2 x AMD EPYC 9534         | 376 GB| 2 x Instinct MI210                                  | Infiniband 200Gbps  |
 | ExaSM    | 2 x AMD EPYC 9554         | 376 GB| 1 x Instinct MI210                                  | Infiniband 200Gbps  |
+
+2. Model Selection (The Workload)
+Two different neural network architectures were chosen to represent different levels of complexity:
+- MobileNet: A "lightweight" model designed for mobile and embedded vision applications.
+- ResNet50: A "heavyweight" and deeper model used for more complex image recognition tasks.
+
+3. Software Framework Implementation
+To ensure the results weren't biased by a single software tool, each model was executed using two different inference engines:
+- TensorFlow (TF): The industry standard for training and deploying machine learning.
+- ONNX Runtime (ORT): A high-performance engine specifically designed to optimize models for faster inference across different hardware.
+
+4. Configuration Setup (The Traffic Profile)
+Following the MLPerf benchmarking standards, the tests were divided into two operational scenarios:
+- Single-Stream (SS): The model processes one image at a time. This measures latency (how fast can we get one answer?).
+- Multi-Stream (MS): The model handles multiple requests simultaneously. This measures throughput (how many answers can we get per second?).
+
+5. Measurement and Data Collection
+During the execution of these inferences, specialized monitoring tools (such as CodeCarbon or hardware-specific sensors) were used to capture two primary metrics:
+- Energy Consumption ($kWh$): The actual electricity drawn by the hardware during the task.
+- Carbon Footprint ($kg\ CO_{2}eq$): Calculated by multiplying the energy used by the Carbon Intensity (CI) of the local power grid and the Power Usage Effectiveness (PUE) of the testing environment.
+
+6. Statistical Validation
+Finally, the tests were repeated multiple times to calculate the Mean (Average) and Standard Deviation. This step ensures that the results are not just "flukes" but are statistically reliable and reproducible.
+
+Tables 2 and 3 present the results in the different multi-device test configurations.
 
 Table 2. Results Obtained from Devices in the SingleStream Scenario
 | Layer | Device  | HW   | Framework | Model | Avg qps | Mean Avg ms | Time Avg s | Avg Watts | Avg dist Watts | Queries | P50 Latency (ms) | P99 Latency (ms) | Energy (kWh) | CO2 (Kg eq) |
