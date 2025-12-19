@@ -4,7 +4,7 @@
 
 **Rapid Simple Implementation of MLPerf**
 
-RSI MLPerf is a quick recipe for implementing MLPerf on different devices in a short series of steps.
+RSI MLPerf is a rapid and simple recipe for implementing MLPerf on different devices in a short series of steps.
 
 <div align="justify">
 
