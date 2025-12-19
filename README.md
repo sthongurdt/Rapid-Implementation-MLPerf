@@ -1,5 +1,5 @@
 <div align="center">
-<h1>RSI MLPerfM</h1>
+<h1>RSI MLPerf</h1>
 </div>
 
 **Rapid Simple Implementation of MLPerf**
