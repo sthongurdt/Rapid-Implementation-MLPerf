@@ -11,7 +11,7 @@ The results were obtained by running the recipe provided in the Docker directory
 
 To explain the methodology behind these tests, it is helpful to view them as a multi-layered benchmarking process designed to measure the environmental cost of AI at the "edge."
 
-1. Hardware Selection (Table. 1.) and explain why
+1. Hardware Selection (Table. 1.).
 
 The tests began by selecting specific hardware platforms that represent different tiers of the Edge and Fog computing hierarchy.
 - Low-Power CPU: The Raspberry Pi 4 (RPI) was used to represent common, accessible IoT hardware.
