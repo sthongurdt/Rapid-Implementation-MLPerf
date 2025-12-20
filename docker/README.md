@@ -50,3 +50,36 @@ Install basic dependencies:
 ```bash
 dnf install vim git -y
 ```
+
+---
+
+## Step 1 – Clone the MLPerf Inference Repository
+Create a working directory and clone the MLPerf inference repository with submodules:
+```bash
+mkdir mlperf && cd mlperf/
+git clone --recurse-submodules https://github.com/mlcommons/inference.git --depth 1
+```
+This repository provides the official MLPerf inference workloads and tools.
+
+---
+
+## Step 2 – Prepare Model Directories
+Create directories to store models for different frameworks:
+```bash
+mkdir models && cd models/
+mkdir tf onnx
+```
+
+---
+
+## Step 3 – Download TensorFlow Models
+Move to the TensorFlow directory and download the required models:
+```bash
+cd tf/
+wget -q https://zenodo.org/record/2535873/files/resnet50_v1.pb
+wget -q https://zenodo.org/record/2269307/files/mobilenet_v1_1.0_224.tgz
+```
+Decompress the MobileNet model:
+```bash
+tar -xzf mobilenet_v1_1.0_224.tgz ./mobilenet_v1_1.0_224_frozen.pb -C .
+```
