@@ -1,97 +1,52 @@
+<div align="center">
+
 # Testing Using Docker
-Rapid execution of MLperf tests
 
-MLperf has a comprehensive testbed for various models and frameworks. This recipe presents a quick setup for CPU-based testing with different frameworks and models.
+**Rapid Execution of MLPerf Inference Benchmarks**
 
-Install requeriments
+[![Artifact Type](https://img.shields.io/badge/Artifact-Methodology-blue)](#)
+[![Reproducibility](https://img.shields.io/badge/Reproducibility-High-success)](#)
+[![MLPerf](https://img.shields.io/badge/Benchmark-MLPerf-orange)](https://mlcommons.org/en/mlperf/)
+[![Docker](https://img.shields.io/badge/Container-Docker-informational)](https://www.docker.com/)
 
-```
+</div>
+
+---
+
+## Purpose of This Document
+
+This document describes the **methodology used to execute MLPerf inference tests** using Docker-based workflows.  
+It is intended to serve as **methodological documentation** for a series of experiments and as supporting material for **Artifact Evaluation (AE)**.
+
+The goal of this recipe is to enable **rapid, reproducible, and device-agnostic execution** of MLPerf tests, especially for researchers who need to validate results with limited setup time.
+
+---
+
+## Scope of the Methodology
+
+This recipe focuses on:
+
+- MLPerf **inference benchmarks**
+- **CPU-based execution** as a baseline
+- Multiple frameworks (TensorFlow and ONNX Runtime)
+- Synthetic and real datasets
+- Docker-based isolation for reproducibility
+
+Although the example targets CPU execution, the same methodology can be adapted to **edge, fog, and accelerator-based devices** with minimal changes.
+
+---
+
+## System Requirements
+
+The following requirements must be satisfied before starting:
+
+- Linux-based operating system
+- Docker installed and properly configured
+- Internet access to download models and datasets
+- Basic command-line tools
+
+Install basic dependencies:
+
+```bash
 dnf install vim git -y
 ```
-
-The first thing to do is clone the MLperf inference repo.
-```
-mkdir mlperf && cd mlperf/ && git clone --recurse-submodules https://github.com/mlcommons/inference.git --depth 1
-```
-
-Create the directory for the models.
-```
-mkdir models && cd models/
-mkdir tf onnx
-```
-
-Change to the directory for TensorFlow models and download the models
-```
-cd tf/
-wget -q https://zenodo.org/record/2535873/files/resnet50_v1.pb
-wget -q https://zenodo.org/record/2269307/files/mobilenet_v1_1.0_224.tgz
-# decompress
-tar -xzf mobilenet_v1_1.0_224.tgz ./mobilenet_v1_1.0_224_frozen.pb -C .
-```
-
-Change to the directory for the Onnxruntime models and download the models
-```
-cd ../onnx
-wget -q https://zenodo.org/record/4735647/files/resnet50_v1.onnx
-wget -q https://zenodo.org/record/4735651/files/mobilenet_v1_1.0_224.onnx
-```
-
-Create the directory for the datasets
-```
-cd ../.. && mkdir data/
-```
-
-Move to the tools directory to download the datasets and download the dataset you need
-```
-cd inference/vision/classification_and_detection/tools/
-```
-
-Save the contents of the "make_fake_imagenet" file:
-```
-cp -p make_fake_imagenet.sh make_fake_imagenet.sh.$(date +%Y%m%d-%H%M%S)
-```
-
-Copy the contents of the file located in the repo in **`update/tools/make_fake_image.sh`** into the **`make_fake_imagenet.sh`** file.
-
-Run the program and move the dataset.
-```
-./make_fake_imagenet.sh && mv fake_imagenet/ ~/mlperf/data/
-```
-
-
-(Opcional) If you requirement use **other datasets**
-```
-./openimages_mlperf -d <DOWNLOAD_PATH>  -m <MAX_IMAGES>
-./openimages_calibration_mlperf -d <DOWNLOAD_PATH>
-Example:
-./openimages_mlperf.sh -d ../../../../data/openimages -m 100
-./openimages_calibration_mlperf.sh -d ../../../../data/openimages
-```
-
-Declare the variables to build the image
-```
-cd ..
-```
-- If you are using the TensorFlow framework
-```
-export MODEL_DIR=../../../models/tf
-```
-- If you are using the Onnxruntime framework
-```
-export MODEL_DIR=../../../models/onnx
-```
-- If you are using the dataset_fake
-```
-export MODEL_DIR=../../../data/fake_imagenet/
-```
-- If you are using other dataset
-```
-export MODEL_DIR=<DOWNLOAD_PATH>
-```
-
-Before running ./run_and_time.sh, you must modify the Dockerfile.* files and the run_and_time.sh script included in the repository. In the update/docker/ directory, you will find all the required modifications for each device, as well as the updated version of run_and_time.sh.
-```
-./run_and_time.sh onnxruntime mobilenet cpu --accuracy
-```
-
-P.D: The test execution is almost certain to fail, modify the `run_and_time.sh` file as it is in the repo archive.
