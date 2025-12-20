@@ -35,16 +35,19 @@ The repository is organized as follows:
 ```
 .
 ├── docker/
-│   └── Rapid deployment recipes for x86-64 platforms
-│
-├── update/
-│   ├── Dockerfiles for different devices and architectures
-│   └── Shell scripts for basic dataset configuration
+│   ├── README.md
+|   └── run_and_time.sh
 │
 ├── result/
-│   ├── Benchmark results for multiple devices and scenarios
-│   ├── CSV files with power consumption measurements
-│   └── Scripts for energy consumption and carbon footprint analysis
+│   ├── EDGE
+│   ├── FOG
+│   ├── Scripts
+│   └── README.md
+|
+├── update/
+│   ├── device
+│   ├── tools
+│   └── README.md
 │
 └── README.md
 ```
