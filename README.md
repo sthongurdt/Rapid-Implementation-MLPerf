@@ -32,7 +32,7 @@ The main objectives of RSI MLPerf are:
 
 ## Repository Structure
 The repository is organized as follows:
-```
+```text
 .
 ├── docker/
 │   ├── README.md
