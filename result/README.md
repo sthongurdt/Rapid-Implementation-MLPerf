@@ -1,22 +1,55 @@
-# Result
+<div align="center">
 
-The results were obtained by running the recipe provided in the Docker directory and using the files located in the update directory. Although the results may differ slightly from those presented in the tables, the recipe ensures that the process is reproducible and can be executed consistently across different environments. It is important to note that variations in the power supply, the temperature of the testing environment, and the effectiveness of thermal dissipation mechanisms can impact the outcomes. These factors have an even stronger influence on embedded devices, where performance is more sensitive to external conditions.
+# MLPerf Benchmark Results
+
+**Results Obtained Using the Proposed Docker-Based Methodology**
+
+[![Artifact Type](https://img.shields.io/badge/Artifact-Results-blue)](#)
+[![Artifact Evaluation](https://img.shields.io/badge/AE-Ready-success)](#)
+[![Reproducibility](https://img.shields.io/badge/Reproducibility-High-brightgreen)](#)
+[![MLPerf](https://img.shields.io/badge/Benchmark-MLPerf-orange)](https://mlcommons.org/en/mlperf/)
+[![Docker](https://img.shields.io/badge/Container-Docker-informational)](https://www.docker.com/)
+
+</div>
+
+---
+
+## Overview of the Results
+
+This document presents the **results obtained from a series of MLPerf inference benchmarks** executed using the **methodology proposed in the `docker/` directory**, together with the **Dockerfiles and dataset configuration provided in the `update/` directory**.
+Although the numerical values obtained during execution may differ slightly from those reported in the tables, the proposed recipe ensures that the **benchmarking process is reproducible, consistent, and portable** across different environments and devices.
+Minor variations in results are expected due to external and environmental factors, including:
+- Power supply stability  
+- Ambient temperature during execution  
+- Thermal dissipation efficiency  
+These factors have a **stronger impact on embedded and edge devices**, where performance and energy consumption are more sensitive to external conditions.
+
+---
 
 ## Glossary
-- HW=Hardware
-- ORT=OnnxRunTime
-- TF=TensorFlow
-- MOB=Mobilenet
-- RES=Resnet50
+- **HW** – Hardware  
+- **ORT** – ONNX Runtime  
+- **TF** – TensorFlow  
+- **MOB** – MobileNet  
+- **RES** – ResNet50  
 
-To explain the methodology behind these tests, it is helpful to view them as a multi-layered benchmarking process designed to measure the environmental cost of AI at the "edge."
+---
 
-1. Hardware Selection (Table. 1.).
+## Methodological Context
+The results should be interpreted as part of a **multi-layered benchmarking methodology** designed to evaluate not only performance, but also the **environmental cost of AI inference at the edge and fog layers**.
+The methodology consists of the following stages.
 
-The tests began by selecting specific hardware platforms that represent different tiers of the Edge and Fog computing hierarchy.
-- Low-Power CPU: The Raspberry Pi 4 (RPI) was used to represent common, accessible IoT hardware.
-- Entry-Level GPU: The NVIDIA Jetson Nano 2GB was selected to test hardware specifically optimized for AI at the edge.
-- High-Performance, FOG and  Edge CPU/GPU: The PUs was used to represent the upper end of Fog computing, EDGE devices (without laptop) and HPC resources.
+---
+
+## 1. Hardware Selection
+The experiments were conducted on multiple hardware platforms representing different levels of the **Edge–Fog–HPC continuum**.
+- **Low-Power CPU (Edge)**  
+  Raspberry Pi 4 (RPI), representing widely available and low-cost IoT hardware.
+- **Entry-Level GPU (Edge AI)**  
+  NVIDIA Jetson Nano 2GB, selected to evaluate hardware optimized for AI inference at the edge.
+- **High-Performance CPU/GPU (Fog / Edge / HPC)**  
+  PU-based systems, representing upper-tier fog computing resources, advanced edge devices, and HPC-class environments.
+**Table 1** summarizes the main characteristics of the evaluated devices.
 
 Table 1. Description of the Devices Evaluated
 | Device   | CPU                       | RAM   | Others                                             | NET                 |
@@ -29,29 +62,61 @@ Table 1. Description of the Devices Evaluated
 | ExaDell  | 2 x AMD EPYC 9534         | 376 GB| 2 x Instinct MI210                                  | Infiniband 200Gbps  |
 | ExaSM    | 2 x AMD EPYC 9554         | 376 GB| 1 x Instinct MI210                                  | Infiniband 200Gbps  |
 
-2. Model Selection (The Workload)
-Two different neural network architectures were chosen to represent different levels of complexity:
-- MobileNet: A "lightweight" model designed for mobile and embedded vision applications.
-- ResNet50: A "heavyweight" and deeper model used for more complex image recognition tasks.
 
-3. Software Framework Implementation
-To ensure the results weren't biased by a single software tool, each model was executed using two different inference engines:
-- TensorFlow (TF): The industry standard for training and deploying machine learning.
-- ONNX Runtime (ORT): A high-performance engine specifically designed to optimize models for faster inference across different hardware.
+---
 
-4. Configuration Setup (The Traffic Profile)
-Following the MLPerf benchmarking standards, the tests were divided into two operational scenarios:
-- Single-Stream (SS): The model processes one image at a time. This measures latency (how fast can we get one answer?).
-- Multi-Stream (MS): The model handles multiple requests simultaneously. This measures throughput (how many answers can we get per second?).
+## 2. Model Selection (Workload)
+Two neural network architectures were selected to represent different computational complexities:
+- **MobileNet (MOB)**  
+  A lightweight model designed for mobile and embedded computer vision tasks.
+- **ResNet50 (RES)**  
+  A deeper and more computationally intensive model commonly used for complex image recognition workloads.
+This selection allows analysis of how model complexity impacts performance, energy consumption, and carbon footprint across devices.
 
-5. Measurement and Data Collection
-During the execution of these inferences, specialized monitoring tools (such as CodeCarbon or hardware-specific sensors) were used to capture two primary metrics:
-- Energy Consumption ($kWh$): The actual electricity drawn by the hardware during the task.
-- Carbon Footprint ($kg\ CO_{2}eq$): Calculated by multiplying the energy used by the Carbon Intensity (CI) of the local power grid and the Power Usage Effectiveness (PUE) of the testing environment.
+---
 
-6. Statistical Validation
-Finally, the tests were repeated multiple times to calculate the Mean (Average) and Standard Deviation. This step ensures that the results are not just "flukes" but are statistically reliable and reproducible.
+## 3. Software Framework Implementation
+To avoid bias toward a single inference engine, each model was executed using two different frameworks:
+- **TensorFlow (TF)**  
+  A widely adopted framework for training and deploying machine learning models.
+- **ONNX Runtime (ORT)**  
+  A high-performance inference engine optimized for efficient execution across heterogeneous hardware platforms.
 
+---
+
+## 4. Configuration Setup (Traffic Profile)
+Following MLPerf inference specifications, benchmarks were executed under two operational scenarios:
+- **Single-Stream (SS)**  
+  Processes one input at a time, primarily measuring **latency**.
+- **Multi-Stream (MS)**  
+  Processes multiple inputs concurrently, focusing on **throughput**.
+These scenarios reflect different real-world deployment conditions.
+
+---
+
+## 5. Measurement and Data Collection
+During benchmark execution, specialized monitoring tools were used to collect energy-related metrics:
+- **Energy Consumption (kWh)**  
+  The total electrical energy consumed during inference.
+- **Carbon Footprint (kg CO₂eq)**  
+  Computed using the measured energy consumption, combined with:
+  - Local Carbon Intensity (CI) of the power grid  
+  - Power Usage Effectiveness (PUE) of the execution environment  
+This approach enables a consistent estimation of environmental impact across devices.
+
+---
+
+## 6. Statistical Validation
+To ensure reliability and reproducibility:
+- Each experiment was executed multiple times.
+- **Mean (average)** and **standard deviation** were calculated.
+- This statistical treatment reduces the influence of transient system behavior and outliers.
+
+---
+
+## Results Summary
+- **Table 2** presents the results obtained in the **Single-Stream scenario** across all evaluated devices.
+- **Table 3** presents the results obtained in the **Multi-Stream scenario** across all evaluated devices.
 Tables 2 and 3 present the results in the different multi-device test configurations.
 
 Table 2. Results Obtained from Devices in the SingleStream Scenario
@@ -126,5 +191,25 @@ Table 3. Results Obtained from Devices in the MultiStream Scenario
 | Cloud | ExaSM | CPU | ORT | MOB | - | - | - | - | - | - | - | - | 0.01025 | 0.00379 |
 | Cloud | ExaSM | CPU | ORT | RES | - | - | - | - | - | - | - | - | 0.03473 | 0.03473 |
 
-The `FOG` and `EDGE` directory contains the energy consumption data collected during the experiments. For the edge devices, the measurements were obtained using a smart power outlet ([VTA-84630](https://www.manualslib.es/manual/346126/Vta-84630.html)). In contrast, the data for the fog devices were gathered using the Kwollect monitoring tool.
+Together, these tables provide a comparative view of performance, energy consumption, and environmental impact.
 
+---
+
+## Energy Measurement Sources
+The `EDGE/` and `FOG/` directories contain the raw energy consumption data collected during the experiments:
+- **Edge Devices**  
+  Measurements were obtained using a smart power outlet (VTA-84630).
+- **Fog Devices**  
+  Measurements were collected using the Kwollect monitoring tool.
+This separation reflects the practical constraints and measurement capabilities of each class of device.
+
+---
+
+## Reproducibility Statement
+The results presented in this document were generated using:
+- The Docker-based recipe provided in `docker/`
+- The Dockerfiles and datasets defined in `update/`
+- Scripted and repeatable execution workflows
+While absolute values may vary slightly across environments, the **methodology and relative comparisons remain reproducible**, making this artifact suitable for academic evaluation and result verification.
+
+---
