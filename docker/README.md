@@ -83,3 +83,106 @@ Decompress the MobileNet model:
 ```bash
 tar -xzf mobilenet_v1_1.0_224.tgz ./mobilenet_v1_1.0_224_frozen.pb -C .
 ```
+
+---
+
+## Step 4 – Download ONNX Runtime Models
+Move to the ONNX directory and download the models:
+```bash
+cd ../onnx
+wget -q https://zenodo.org/record/4735647/files/resnet50_v1.onnx
+wget -q https://zenodo.org/record/4735651/files/mobilenet_v1_1.0_224.onnx
+```
+
+---
+
+## Step 5 – Prepare Dataset Directory
+Create a directory to store datasets:
+```bash
+cd ../.. && mkdir data/
+```
+
+---
+
+## Step 6 – Generate a Synthetic Dataset
+Move to the MLPerf tools directory:
+```bash
+cd inference/vision/classification_and_detection/tools/
+```
+Backup the original script:
+```bash
+cp -p make_fake_imagenet.sh make_fake_imagenet.sh.$(date +%Y%m%d-%H%M%S)
+```
+Replace the contents of make_fake_imagenet.sh with the version provided in:
+```bash
+update/tools/make_fake_image.sh
+```
+Generate the dataset and move it to the data directory:
+```bash
+./make_fake_imagenet.sh
+mv fake_imagenet/ ~/mlperf/data/
+```
+
+---
+
+## Step (Optional) - Use Alternative Datasets
+If real datasets are required, the following tools can be used:
+```bash
+./openimages_mlperf.sh -d <DOWNLOAD_PATH> -m <MAX_IMAGES>
+./openimages_calibration_mlperf.sh -d <DOWNLOAD_PATH>
+```
+Example:
+```bash
+./openimages_mlperf.sh -d ../../../../data/openimages -m 100
+./openimages_calibration_mlperf.sh -d ../../../../data/openimages
+```
+
+---
+
+## Step 7 – Configure Environment Variables
+Return to the inference directory:
+```bash
+cd ..
+```
+Set the model directory according to the framework:
+### TensorFlow
+```bash
+export MODEL_DIR=../../../models/tf
+```
+### ONNX Runtime
+```bash
+export MODEL_DIR=../../../models/onnx
+```
+### Fake ImageNet Dataset
+```bash
+export DATA_DIR=../../../data/fake_imagenet/
+```
+### Other Datasets
+```bash
+export DATA_DIR=<DOWNLOAD_PATH>
+```
+
+---
+
+## Step 8 – Adapt Dockerfiles and Execution Scripts
+
+Before running the benchmark, the following files must be adapted:
+- Dockerfile.*
+- run_and_time.sh
+Updated versions for each supported device are provided in:
+```bash
+update/docker/
+```
+
+
+
+
+
+
+
+
+
+```bash
+```
+```bash
+```
