@@ -1,13 +1,14 @@
 <div align="center">
-<h1>RSI MLPerf</h1>
-</div>
+# RSI MLPerf<
+
+**Rapid and Simple Implementation of MLPerf**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Artifact Type](https://img.shields.io/badge/Artifact-Evaluation-blue)](#)
 [![Reproducibility](https://img.shields.io/badge/Reproducibility-High-success)](#)
 [![MLPerf](https://img.shields.io/badge/Benchmark-MLPerf-orange)](https://mlcommons.org/en/mlperf/)
 
-**Rapid and Simple Implementation of MLPerf**
+</div>
 
 ---
 
