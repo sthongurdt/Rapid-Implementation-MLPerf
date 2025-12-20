@@ -165,7 +165,6 @@ export DATA_DIR=<DOWNLOAD_PATH>
 ---
 
 ## Step 8 – Adapt Dockerfiles and Execution Scripts
-
 Before running the benchmark, the following files must be adapted:
 - Dockerfile.*
 - run_and_time.sh
@@ -173,16 +172,45 @@ Updated versions for each supported device are provided in:
 ```bash
 update/docker/
 ```
+These modifications ensure compatibility with different architectures, runtimes, and resource constraints.
 
+---
 
-
-
-
-
-
-
-
+## Step 9 – Run the MLPerf Inference Test
+Execute the benchmark using the adapted script:
 ```bash
+./run_and_time.sh onnxruntime mobilenet cpu --accuracy
 ```
+
+---
+
+# Notes on Execution Variability
+The exact command, Docker configuration, and runtime parameters may vary depending on the target device, such as:
+- CPU vs GPU
+- Edge or fog devices
+- ARM vs x86 architectures
+- Memory and power constraints
+For this reason, the test launch procedure should be adapted per device, while preserving the same methodological steps described in this document.
+This flexibility is intentional and supports reproducibility across heterogeneous platforms.
+
+---
+
+# Reproducibility Statement
+This methodology is designed to be:
+- Script-based
+- Deterministic in setup
+- Portable across devices
+- Suitable for academic artifact evaluation
+Any deviations from the described steps should be documented alongside experimental results.
+
+---
+
+# Disclaimer
+Initial executions may fail if the original MLPerf scripts are used without modification.
+Ensure that the run_and_time.sh file is replaced with the version provided in this repository before running the tests.
+
+
+
+
 ```bash
 ```
