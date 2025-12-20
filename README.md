@@ -1,5 +1,5 @@
 <div align="center">
-RSI MLPerf
+<h1>RSI MLPerf</h1>
 </div>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
