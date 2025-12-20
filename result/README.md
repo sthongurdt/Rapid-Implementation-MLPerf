@@ -1,6 +1,6 @@
 <div align="center">
 
-# MLPerf Benchmark Results
+# RSI MLPerf Benchmark Results
 
 **Results Obtained Using the Proposed Docker-Based Methodology**
 
