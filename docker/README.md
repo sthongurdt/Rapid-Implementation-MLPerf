@@ -181,6 +181,10 @@ Execute the benchmark using the adapted script:
 ```bash
 ./run_and_time.sh onnxruntime mobilenet cpu --accuracy
 ```
+For RPi and J-Nano:
+```
+./run_and_time.sh tf mobilenet cpu --accuracy --threads 1 --cache 0 --cache_dir /output/cache/cpu_tf_mob_ss_$(date +%Y%m%d_%H%M%S)
+```
 
 ---
 
