@@ -95,7 +95,7 @@ This project is released under the MIT License.
 ## Citation
 If you use this repository in your research, please cite it as follows:
 ```
-RSI MLPerf: Rapid and Simple Implementation of MLPerf. Repository: https://github.com/sthongurdt/Rapid-Implementation-MLPerf
+P.J. Rojas, 2025. RSI MLPerf: Rapid and Simple Implementation of MLPerf. Github. https://github.com/sthongurdt/Rapid-Implementation-MLPerf
 ```
 
 ---
